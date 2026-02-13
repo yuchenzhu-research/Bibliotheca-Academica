@@ -6,6 +6,7 @@ tags: ["Modernity", "2017"]
 author: "Vaswani et al."
 date: "2017-06-12"
 text_theme: "light"
+layout_style: "split"
 ---
 
 > "Attention is the currency of intelligence. In its presence, context becomes eternal."

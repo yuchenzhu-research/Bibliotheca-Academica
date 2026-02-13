@@ -12,6 +12,7 @@ const exhibits = defineCollection({
         author: z.string().default('Anonymous Artist'),
         image: z.string().optional(), // maintaining compatibility for now
         text_theme: z.enum(['light', 'dark']).default('dark'),
+        layout_style: z.enum(['overlay', 'split']).default('overlay'),
     }),
 });
 

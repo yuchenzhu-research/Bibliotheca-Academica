@@ -11,20 +11,24 @@ interface Props {
     image?: string; // Legacy string URL
     cover?: ImageMetadata; // Optimized Astro Image
     text_theme?: 'light' | 'dark'; // Adaptive legibility
+    layout_style?: 'overlay' | 'split'; // Composition control
 }
 
-const { title, date, url, description, image, tags, cover, text_theme = 'dark' } = Astro.props;
+const { title, date, url, description, image, tags, cover, text_theme = 'dark', layout_style = 'overlay' } = Astro.props;
 
 // Get first letter for watermark
 const firstLetter = title.charAt(0).toUpperCase();
 
-// Color Logic
-const isLightTheme = text_theme === 'light';
-const textColor = isLightTheme ? 'text-slate-900' : 'text-museum-paper';
-const hoverTextColor = isLightTheme ? 'group-hover:text-museum-crimson' : 'group-hover:text-museum-gold';
-const descColor = isLightTheme ? 'text-slate-700' : 'text-museum-paper/80';
-const plaqueBorder = isLightTheme ? 'border-slate-900/30' : 'border-museum-paper/30';
-const plaqueText = isLightTheme ? 'text-slate-900/70' : 'text-museum-paper/90';
+// Layout Logic
+const isSplit = layout_style === 'split';
+
+// Color Logic (Split mode enforces solid paper background for text, overriding overlay logic)
+const isLightTheme = text_theme === 'light' && !isSplit;
+const textColor = isSplit ? 'text-museum-ink' : (isLightTheme ? 'text-slate-900' : 'text-museum-paper');
+const hoverTextColor = isSplit ? 'group-hover:text-museum-crimson' : (isLightTheme ? 'group-hover:text-museum-crimson' : 'group-hover:text-museum-gold');
+const descColor = isSplit ? 'text-museum-ink/80' : (isLightTheme ? 'text-slate-700' : 'text-museum-paper/80');
+const plaqueBorder = isSplit ? 'border-museum-gold/40' : (isLightTheme ? 'border-slate-900/30' : 'border-museum-paper/30');
+const plaqueText = isSplit ? 'text-museum-ink/60' : (isLightTheme ? 'text-slate-900/70' : 'text-museum-paper/90');
 
 // Default Colors for non-image cards (Gold/Dark)
 const defaultTitleColor = 'text-museum-bg group-hover:text-museum-crimson';
@@ -34,7 +38,7 @@ const defaultPlaqueText = 'text-museum-ink/60';
 ---
 
 <a href={url} class="group block relative perspective-1000">
-	<article class="
+	<article class={`
 		relative 
         bg-museum-paper 
         text-museum-ink 
@@ -48,21 +52,22 @@ const defaultPlaqueText = 'text-museum-ink/60';
         group-hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.6),0_0_0_2px_#d4af37]
         group-hover:rotate-0
 		overflow-hidden
-	">
-		<!-- Background Texture -->
+        ${isSplit ? 'bg-museum-paper' : ''}
+	`}>
+		<!-- Background Texture (Only visible in text areas or if no image) -->
 		<div class="absolute inset-0 opacity-20 bg-noise pointer-events-none mix-blend-multiply"></div>
 
         {cover ? (
             // Image Cover Mode
-            <div class="absolute inset-0 z-0">
-                <Image src={cover} alt={title} width={800} height={600} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3]" />
-                <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>
+            <div class={`absolute inset-0 z-0 ${isSplit ? 'h-1/2 bottom-auto border-b-4 border-double border-museum-gold' : ''}`}>
+                <Image src={cover} alt={title} width={800} height={600} class={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3] ${isSplit ? 'object-top' : ''}`} />
+                {!isSplit && <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>}
             </div>
         ) : image ? (
             // Legacy Image Mode (String URL)
-            <div class="absolute inset-0 z-0">
-                <img src={image} alt={title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3]" />
-                <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>
+            <div class={`absolute inset-0 z-0 ${isSplit ? 'h-1/2 bottom-auto border-b-4 border-double border-museum-gold' : ''}`}>
+                <img src={image} alt={title} class={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3] ${isSplit ? 'object-top' : ''}`} />
+                {!isSplit && <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>}
             </div>
         ) : (
             // Typography Cover Mode (Watermark)
@@ -72,7 +77,7 @@ const defaultPlaqueText = 'text-museum-ink/60';
         )}
 
         <!-- Content Content -->
-		<div class="relative z-10 flex flex-col gap-4 p-8 h-full justify-end">
+		<div class={`relative z-10 flex flex-col gap-4 p-8 h-full justify-end ${isSplit ? 'mt-[160px] bg-museum-paper' : ''}`}>
             <!-- Decorative Element -->
             {!image && !cover && <div class="w-12 h-1 bg-museum-gold/50 mb-auto"></div>}
 

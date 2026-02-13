@@ -16,4 +16,17 @@ const exhibits = defineCollection({
     }),
 });
 
-export const collections = { exhibits };
+const gallery = defineCollection({
+    type: 'content',
+    schema: ({ image }) => z.object({
+        title: z.string(),
+        author: z.string(),
+        date: z.string().or(z.date()).transform((val) => new Date(val)),
+        milestone: z.string(),
+        abstract: z.string(),
+        pdf_link: z.string(),
+        cover: image(),
+    }),
+});
+
+export const collections = { exhibits, gallery };

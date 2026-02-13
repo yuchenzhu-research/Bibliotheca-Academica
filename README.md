@@ -2,39 +2,39 @@
 
 **A high-aesthetic, Renaissance-style digital museum for your Markdown artifacts.**
 
-BIBLIOTHECA transforms your Markdown files into an immersive, curated gallery experience. Inspired by the Italian Renaissance, it uses Chiaroscuro (light/dark contrast), elegant serif typography, and rich textures to elevate simple text into a work of art.
+BIBLIOTHECA transforms simple Markdown files into an immersive, curated gallery experience. Inspired by the Italian Renaissance, it leverages Chiaroscuro (light/dark contrast), elegant serif typography, and rich textures to elevate digital knowledge into a work of art.
 
-## 🎨 Aesthetic Features
+## 🎨 The Aesthetic Vision
 
-- **The Frame**: Double-gold borders (`border-double`) and custom shadows for a tactile, 3D effect.
-- **The Lighting**: Radial gradients simulate a museum spotlight, focusing attention on the curation.
-- **Typography**: Authentic scholarly feel using `Cinzel` for headings and `EB Garamond` paired with `Noto Serif SC` for multi-language body text.
-- **Micro-interactions**: Smooth transitions and hover effects that simulate approaching an exhibit.
+- **Chiaroscuro Atmosphere**: A moody, charcoal-textured background with radial "spotlight" gradients that focus the eye on your content.
+- **The Golden Frame**: Every artifact is elegantly encased in a double-gold border with 3D depth shadows.
+- **Universal Typography**: A bespoke pairing of `Cinzel` (authoritative headings) and `EB Garamond` (classic body text). For multi-lingual support, we integrate `Noto Serif SC` to bring the same scholarly weight to Chinese text.
+- **Micro-interactions**: Smooth transitions and hover effects that simulate walking through a physical gallery space.
 
-## 🏛️ How it Works
+## 🏛️ Interactive Curation
 
-### 1. The Gallery Hall (`/`)
-Reads Markdown files from the `./data` directory at root. Each file is treated as an "Exhibit" with its own metadata plaque.
+While the museum can serve as a static archive, its heart is the **Curator's Desk**:
 
-### 2. The Curator's Desk (`/curator`)
-A client-side interactive zone. Drag and drop any `.md` file (Chinese, English, etc.) to instantly view it in the museum's signature style without any server-side processing.
+- **Instant Digitization**: Visit the `/curator` page to drag and drop any `.md` file. It renders instantly in the browser without any server-side storage or processing.
+- **Privacy First**: Your documents never leave your machine; the conversion happens entirely on the client side.
+- **Dynamic Watermarking**: Artifacts without cover images automatically receive custom typographic cover art based on their title.
 
-## 🚀 Getting Started
+## 🚀 Experience it Locally
 
 ```bash
-# Install dependencies
+# Prepare the edifice
 npm install
 
-# Start the gallery (localhost:4321)
+# Open the gallery (http://localhost:4321)
 npm run dev
 
-# Build the museum for production
+# Construct for production
 npm run build
 ```
 
-## 📜 Curation Guide
+## 📜 Metadata Support
 
-Add your artifacts to the `data/` folder with YAML frontmatter:
+The museum respects your manuscript's metadata (YAML frontmatter):
 
 ```yaml
 ---
@@ -42,14 +42,14 @@ title: "The Nature of Intelligence"
 author: "Aristotle"
 date: "2023-10-27"
 description: "A profound exploration into the origins of thought..."
-cover: "https://example.com/cover.jpg" # Optional cover image
+cover: "https://example.com/cover.jpg" # Optional aesthetic cover
 ---
 ```
 
-## 🛠️ Tech Stack
-- **Framework**: [Astro](https://astro.build)
+## 🛠️ Built for the Modern Scholar
+- **Core**: [Astro](https://astro.build) (Static optimization)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) (v4)
-- **Icons**: [Lucide](https://lucide.dev)
+- **Parsing**: [Marked](https://marked.js.org/)
 
 ---
 *Ars Longa, Vita Brevis.*

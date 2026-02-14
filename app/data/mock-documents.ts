@@ -12,6 +12,7 @@ export const documents: Document[] = [
         focalY: 15,
         imageScale: 1.1,
         academicContext: "Newton's work replaced the indeterminate qualitative explanations of physics with a quantitative, mathematical approach. By unifying terrestrial and celestial mechanics under a single set of laws, he laid the framework for the Enlightenment's view of a predictable, 'clockwork' universe. This document is the cornerstone of classical physics.",
+        tags: ["Classical Mechanics", "Calculus", "Enlightenment", "Alchemy"],
     },
     {
         id: "2",
@@ -24,6 +25,7 @@ export const documents: Document[] = [
         focalY: 20,
         imageScale: 1.2,
         academicContext: "Da Vinci's illustration perfectly embodies the Renaissance concept of 'Man as the measure of all things.' Beyond its artistic merit, it reflects an early anatomical rigor and a philosophical belief in the divine symmetry of nature, bridging the gap between artistic expression and scientific observation.",
+        tags: ["Polymath", "Anatomy", "Engineering", "Golden Ratio"],
     },
     {
         id: "3",
@@ -36,6 +38,7 @@ export const documents: Document[] = [
         focalY: 20,
         imageScale: 1.15,
         academicContext: "This text famously led to Galileo's trial for heresy. It is a masterpiece of scientific persuasion, using dialogue to dismantle the Earth-centric model. It represents the historic transition from dogma-based natural philosophy to empirical, observation-led science.",
+        tags: ["Observational Astronomy", "Kinematics", "Heliocentrism", "Inquisition"],
     },
     {
         id: "4",
@@ -48,6 +51,7 @@ export const documents: Document[] = [
         focalY: 10,
         imageScale: 1.1,
         academicContext: "Often cited as the most successful and influential textbook ever written. Euclid established the axiomatic method, proving complex theorems from simple, self-evident assumptions. For over two millennia, it defined the logical structure of human reason and mathematical thought.",
+        tags: ["Geometry", "Axiomatic Logic", "Alexandria", "Mathematics"],
     },
     {
         id: "5",
@@ -60,6 +64,7 @@ export const documents: Document[] = [
         focalY: 25,
         imageScale: 1.2,
         academicContext: "Plato's Republic is the definitive text on political philosophy. Through the allegory of the cave and the theory of forms, it explores the nature of truth, the definition of justice, and the ideal structure of society, influencing every major political theorist in Western history.",
+        tags: ["Idealism", "Dialectic", "Political Philosophy", "Athens"],
     },
     {
         id: "6",
@@ -72,5 +77,6 @@ export const documents: Document[] = [
         focalY: 15,
         imageScale: 1.15,
         academicContext: "Published on his deathbed, Copernicus's work initiated the 'Copernican Revolution.' By mathematically demonstrating the heliocentric model, he challenged both the religious and scientific establishment, fundamentally altering humanity's perceived place in the cosmos.",
+        tags: ["Cosmology", "Paradigm Shift", "Renaissance", "Astronomy"],
     },
 ];

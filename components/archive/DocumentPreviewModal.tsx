@@ -88,14 +88,17 @@ export function DocumentPreviewModal({
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 pt-4">
-                                <div className="bg-muted/30 p-3 rounded-lg border border-white/5">
-                                    <span className="block text-xs uppercase text-muted-foreground mb-1">Origin</span>
-                                    <span className="text-sm text-foreground">Digital Archive</span>
-                                </div>
-                                <div className="bg-muted/30 p-3 rounded-lg border border-white/5">
-                                    <span className="block text-xs uppercase text-muted-foreground mb-1">Status</span>
-                                    <span className="text-sm text-green-400">Restored</span>
+                            <div className="pt-4">
+                                <div className="flex flex-wrap gap-2">
+                                    {document.tags?.map((tag) => (
+                                        <Badge
+                                            key={tag}
+                                            variant="outline"
+                                            className="rounded-full border-zinc-800 bg-zinc-900/40 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-zinc-400 transition-colors hover:border-zinc-700 hover:text-zinc-300"
+                                        >
+                                            {tag}
+                                        </Badge>
+                                    ))}
                                 </div>
                             </div>
                         </div>

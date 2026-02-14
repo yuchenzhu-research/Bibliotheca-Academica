@@ -9,4 +9,5 @@ export interface Document {
     focalY?: number;
     imageScale?: number;
     academicContext?: string;
+    tags?: string[];
 }

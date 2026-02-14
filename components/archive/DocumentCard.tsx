@@ -22,7 +22,7 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
         e.stopPropagation();
         const config = `focalY: ${focalY}, imageScale: ${imageScale},`;
         navigator.clipboard.writeText(config);
-        alert(`Copied: ${config}`);
+        // Removed alert as per user feedback
     };
 
     return (

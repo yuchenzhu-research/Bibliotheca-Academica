@@ -18,6 +18,9 @@ const badgeVariants = cva(
           "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         ghost: "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         link: "text-primary underline-offset-4 [a&]:hover:underline",
+        // Apple Clinical variants
+        glass: "border-white/20 bg-white/5 text-foreground backdrop-blur-md [a&]:hover:bg-white/10",
+        subtle: "border-white/10 bg-white/5 text-muted-foreground/80 [a&]:hover:bg-white/10",
       },
     },
     defaultVariants: {

@@ -7,4 +7,5 @@ export interface Document {
     year: string;
     author: string;
     focalY?: number;
+    imageScale?: number;
 }

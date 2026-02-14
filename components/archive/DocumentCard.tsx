@@ -14,12 +14,13 @@ interface DocumentCardProps {
 }
 
 export function DocumentCard({ document, className, onClick }: DocumentCardProps) {
-    const [focalY, setFocalY] = useState(document.focalY || 20); // Default to 20% (eyes) if not set
+    const [focalY, setFocalY] = useState(document.focalY || 50); // Default to 50% (Center)
+    const [imageScale, setImageScale] = useState(document.imageScale || 1.0); // Default to 1.0 (No Zoom)
     const isDev = process.env.NODE_ENV === "development";
 
     const handleCopyConfig = (e: React.MouseEvent) => {
         e.stopPropagation();
-        const config = `focalY: ${focalY},`;
+        const config = `focalY: ${focalY}, imageScale: ${imageScale},`;
         navigator.clipboard.writeText(config);
         alert(`Copied: ${config}`);
     };
@@ -44,37 +45,57 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
                     alt={document.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: `50% ${focalY}%` }}
+                    style={{
+                        objectPosition: `50% ${focalY}%`,
+                        transform: `scale(${imageScale})`
+                    }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
 
-                {/* Curator's Focal Controller (Dev Only) */}
+                {/* Curator's Toolkit v2 (Dev Only) */}
                 {isDev && (
                     <div
-                        className="absolute right-2 top-2 bottom-2 z-50 flex flex-col items-center justify-center gap-2 rounded-full bg-black/40 backdrop-blur-md p-1 opacity-0 transition-opacity group-hover:opacity-100"
+                        className="absolute inset-0 z-50 flex flex-col justify-between p-2 opacity-0 transition-opacity group-hover:opacity-100"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <span className="text-[10px] font-mono font-bold text-white">{focalY}%</span>
-                        <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            className="h-full w-1 appearance-none bg-white/20 accent-primary outline-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
-                            style={{ writingMode: "vertical-lr", direction: "rtl" }}
-                            value={focalY}
-                            onChange={(e) => setFocalY(Number(e.target.value))}
-                        />
-                        <button
-                            onClick={handleCopyConfig}
-                            className="rounded-full bg-white/10 p-1 text-[8px] uppercase hover:bg-white/20"
-                            title="Copy Config"
-                        >
-                            CPY
-                        </button>
+                        {/* Pan Control (Right) */}
+                        <div className="absolute right-2 top-2 bottom-8 flex flex-col items-center justify-center gap-2 rounded-full bg-black/40 backdrop-blur-md p-1">
+                            <span className="text-[8px] font-mono font-bold text-white writing-vertical-rl">PAN {focalY}%</span>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                className="h-full w-1 appearance-none bg-white/20 accent-primary outline-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                                style={{ writingMode: "vertical-lr", direction: "rtl" }}
+                                value={focalY}
+                                onChange={(e) => setFocalY(Number(e.target.value))}
+                            />
+                        </div>
+
+                        {/* Scale Control (Bottom) */}
+                        <div className="absolute bottom-2 left-10 right-10 flex items-center gap-2 rounded-full bg-black/40 backdrop-blur-md px-3 py-1">
+                            <span className="text-[8px] font-mono font-bold text-white whitespace-nowrap">ZOOM {imageScale}x</span>
+                            <input
+                                type="range"
+                                min="1.0"
+                                max="2.0"
+                                step="0.05"
+                                className="w-full h-1 appearance-none bg-white/20 accent-primary outline-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                                value={imageScale}
+                                onChange={(e) => setImageScale(Number(e.target.value))}
+                            />
+                            <button
+                                onClick={handleCopyConfig}
+                                className="rounded-full bg-primary/20 border border-primary/50 px-2 py-0.5 text-[8px] uppercase text-primary hover:bg-primary/40 whitespace-nowrap"
+                                title="Copy Config"
+                            >
+                                SAVE
+                            </button>
+                        </div>
                     </div>
                 )}
 
-                <div className="absolute top-4 left-4 pointer-events-none">
+                <div className="absolute top-4 left-4 pointer-events-none z-10">
                     <Badge variant="outline" className="bg-zinc-950/50 backdrop-blur-sm border-white/10 text-xs font-medium uppercase tracking-widest text-white/80">
                         {document.category}
                     </Badge>

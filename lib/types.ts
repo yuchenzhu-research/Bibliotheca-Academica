@@ -6,4 +6,5 @@ export interface Document {
     imageUrl: string;
     year: string;
     author: string;
+    focalY?: number;
 }

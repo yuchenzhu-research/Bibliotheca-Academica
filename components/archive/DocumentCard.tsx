@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Document } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,16 @@ interface DocumentCardProps {
 }
 
 export function DocumentCard({ document, className, onClick }: DocumentCardProps) {
+    const [focalY, setFocalY] = useState(document.focalY || 20); // Default to 20% (eyes) if not set
+    const isDev = process.env.NODE_ENV === "development";
+
+    const handleCopyConfig = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const config = `focalY: ${focalY},`;
+        navigator.clipboard.writeText(config);
+        alert(`Copied: ${config}`);
+    };
+
     return (
         <motion.div
             whileHover={{ scale: 1.02 }}
@@ -32,11 +43,38 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
                     src={document.imageUrl}
                     alt={document.title}
                     fill
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: `50% ${focalY}%` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
 
-                <div className="absolute top-4 left-4">
+                {/* Curator's Focal Controller (Dev Only) */}
+                {isDev && (
+                    <div
+                        className="absolute right-2 top-2 bottom-2 z-50 flex flex-col items-center justify-center gap-2 rounded-full bg-black/40 backdrop-blur-md p-1 opacity-0 transition-opacity group-hover:opacity-100"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <span className="text-[10px] font-mono font-bold text-white">{focalY}%</span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            className="h-full w-1 appearance-none bg-white/20 accent-primary outline-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                            style={{ writingMode: "vertical-lr", direction: "rtl" }}
+                            value={focalY}
+                            onChange={(e) => setFocalY(Number(e.target.value))}
+                        />
+                        <button
+                            onClick={handleCopyConfig}
+                            className="rounded-full bg-white/10 p-1 text-[8px] uppercase hover:bg-white/20"
+                            title="Copy Config"
+                        >
+                            CPY
+                        </button>
+                    </div>
+                )}
+
+                <div className="absolute top-4 left-4 pointer-events-none">
                     <Badge variant="outline" className="bg-zinc-950/50 backdrop-blur-sm border-white/10 text-xs font-medium uppercase tracking-widest text-white/80">
                         {document.category}
                     </Badge>

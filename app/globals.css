@@ -55,9 +55,8 @@
 :root {
   --radius: 0.5rem;
 
-  /* Zinc-inspired Light Mode (keeping it accessible but not default) */
-  --background: 240 10% 4%;
-  /* Zinc 950 approx */
+  /* Alive Black: #08090a -> HSL 210 11% 4% */
+  --background: 210 11% 4%;
   --foreground: 0 0% 98%;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);

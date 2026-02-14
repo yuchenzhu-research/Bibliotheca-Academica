@@ -68,7 +68,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex-none w-[85vw] md:w-[400px]">
+        <div className="flex-none w-[85vw] md:w-[475px]"> { /* Widened to adjust crop - user requested "shrink" */}
           <AletImageCard
             title="The Republic"
             description="A Socratic dialogue concerning justice."
@@ -87,7 +87,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex-none w-[85vw] md:w-[400px]">
+        <div className="flex-none w-[85vw] md:w-[475px]"> { /* Widened to adjust crop - user requested "shrink" and move down */}
           <AletImageCard
             title="Elements of Geometry"
             description="The most successful textbook ever written."

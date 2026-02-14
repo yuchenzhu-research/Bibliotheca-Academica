@@ -8,9 +8,7 @@ export function HeroSection() {
     return (
         <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 text-center md:px-8">
             {/* Background Glows */}
-            <div className="absolute top-1/2 left-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-[120px] opacity-50" />
-            <div className="absolute top-0 right-0 -z-10 h-[300px] w-[300px] bg-blue-500/10 blur-[100px] opacity-30" />
-            <div className="absolute bottom-0 left-0 -z-10 h-[300px] w-[300px] bg-purple-500/10 blur-[100px] opacity-30" />
+            {/* Background Glows - Removed to reveal Global Layout Background */}
 
             <div className="container mx-auto flex max-w-4xl flex-col items-center gap-8">
                 <motion.div

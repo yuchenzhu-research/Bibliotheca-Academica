@@ -3,7 +3,7 @@ import { ArchiveGallery } from "@/components/archive/ArchiveGallery";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-primary/20 pb-20">
+    <main className="min-h-screen text-foreground selection:bg-primary/20 pb-20">
       <HeroSection />
 
       <section className="container mx-auto px-4 md:px-8">

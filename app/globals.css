@@ -56,8 +56,9 @@
   --radius: 0.5rem;
 
   /* Zinc-inspired Light Mode (keeping it accessible but not default) */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
+  --background: 240 10% 4%;
+  /* Zinc 950 approx */
+  --foreground: 0 0% 98%;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);

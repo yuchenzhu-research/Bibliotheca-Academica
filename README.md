@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🏛️ BIBLIOTHECA ACADEMICA
 
-First, run the development server:
+**A high-aesthetic, chronological archive for monumental Computer Science and Machine Learning papers.**
+
+[![Astro](https://img.shields.io/badge/Framework-Astro_8.0-ff5a03?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
+[![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind_CSS_4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/yuchenzhu-research/Bibliotheca-Academica?style=for-the-badge&color=success&logo=github)](https://github.com/yuchenzhu-research/Bibliotheca-Academica/stargazers)
+
+</div>
+
+<br />
+
+## 📖 The Vision
+
+*Bibliotheca Academica* transforms classic academic manuscripts into an immersive, timeline-driven reading experience. Moving away from the sterile, cluttered interfaces of traditional PDF viewers, this archive pairs the original PDF documents with dark-mode optimized architectural blueprints and elegant Renaissance-inspired typography (Cinzel & EB Garamond).
+
+## ✨ Key Features
+
+- 🕰️ **Chronological Timeline**: Traverse the history of Machine Learning, from the 1958 Perceptron to the 2017 Transformer and beyond.
+- 📄 **Native PDF Embedding**: Read original research papers directly in the browser via responsive, beautifully framed iframes.
+- 🌑 **Chiaroscuro Dark Mode**: Academic white-background diagrams are dynamically inverted and blended using CSS filters to maintain a sleek, dark aesthetic.
+- 🔒 **Type-Safe Architecture**: Built with Astro Content Collections and Zod schemas to ensure zero broken links and strict metadata formatting.
+
+---
+
+## 🚀 Quick Start
+
+Launch the museum locally in seconds.
 
 ```bash
+# Clone the repository
+git clone https://github.com/yuchenzhu-research/Bibliotheca-Academica.git
+
+# Navigate to the directory
+cd Bibliotheca-Academica
+
+# Install dependencies
+npm install
+
+# Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+*Visit `http://localhost:4321` to explore the archive.*
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏛️ How to Curate (Add a Paper)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This archive uses static site generation for extreme performance. Adding a new historical milestone takes exactly two steps:
 
-## Learn More
+**1. The Artifact (PDF & Cover):**
+Drop the original `.pdf` paper into `public/papers/`.
+*(Optional)* Drop an architecture screenshot into `public/images/`.
 
-To learn more about Next.js, take a look at the following resources:
+**2. The Metadata:**
+Create a `.md` file in `src/content/papers/` following this strict schema:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```yaml
+---
+title: "Attention Is All You Need"
+authors: "Ashish Vaswani, Noam Shazeer, et al."
+date: "2017-06-12"
+abstract: "Discarded recurrence and convolutions entirely in favor of self-attention mechanisms, laying the groundwork for the generative AI revolution."
+pdf_link: "/papers/2017-transformer.pdf"
+cover: "/images/transformer-arch.png"
+---
+```
+*The build system will automatically parse this, type-check it, sort it by date, and inject it into the global timeline.*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📜 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Distributed under the MIT License. *Ars Longa, Vita Brevis.*

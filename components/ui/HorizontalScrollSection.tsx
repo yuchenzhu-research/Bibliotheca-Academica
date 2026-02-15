@@ -1,25 +1,35 @@
 "use client";
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface HorizontalScrollSectionProps {
     children: React.ReactNode;
     className?: string;
     showScrollIndicator?: boolean;
+    onScrollProgress?: (progress: number) => void;
 }
 
 export function HorizontalScrollSection({
     children,
     className,
     showScrollIndicator = true,
+    onScrollProgress,
 }: HorizontalScrollSectionProps) {
     const targetRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
+    // Notify parent of scroll progress for particle effects
+    useMotionValueEvent(scrollYProgress, "change", (latest) => {
+        if (onScrollProgress) {
+            onScrollProgress(latest);
+        }
+    });
+
+    // RESTORED: Logic from previous version
     // Phase 1: Entry (0% - 12.5%) - Title fades out
     const headerOpacity = useTransform(scrollYProgress,
         [0, 0.125, 0.625, 0.75],
@@ -27,10 +37,11 @@ export function HorizontalScrollSection({
     );
 
     // Phase 2: Horizontal Scroll (12.5% - 62.5%) - Cards slide in
-    const xRaw = useTransform(scrollYProgress, [0.125, 0.625], ['30%', '-60%']);
+    // Tuned for exactly 3 cards worth of content
+    const xRaw = useTransform(scrollYProgress, [0.125, 0.8], ['10%', '-65%']);
     const x = useSpring(xRaw, {
-        damping: 15,
-        stiffness: 200,
+        damping: 20,
+        stiffness: 90,
         mass: 1,
     });
 
@@ -44,13 +55,13 @@ export function HorizontalScrollSection({
     return (
         <section
             ref={targetRef}
-            className={cn('relative h-[400vh] bg-warm-paper py-0', className)}
+            className={cn('relative h-[400vh] py-0', className)} // Removed bg-warm-paper to let parent handle bg
         >
             <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-                {/* Section header */}
+                {/* Section header - RESTORED: Dark text colors */}
                 <motion.div
                     style={{ opacity: headerOpacity }}
-                    className="container mx-auto px-4 mb-16 w-full"
+                    className="container mx-auto px-4 mb-8 md:mb-16 w-full"
                 >
                     <div className="flex items-end justify-between">
                         <div className="space-y-4">
@@ -60,9 +71,10 @@ export function HorizontalScrollSection({
                                     Archive Collection
                                 </span>
                             </div>
-                            <h2 className="font-epic-serif text-6xl md:text-8xl text-foreground font-light leading-[1]">
+                            {/* RESTORED: Foreground color (dark) */}
+                            <h2 className="font-epic-serif text-5xl md:text-8xl text-foreground font-light leading-[1]">
                                 Selected <br />
-                                <span className="italic pl-16 md:pl-32">Works</span>
+                                <span className="italic pl-12 md:pl-32">Works</span>
                             </h2>
                         </div>
 
@@ -79,18 +91,19 @@ export function HorizontalScrollSection({
                     </div>
                 </motion.div>
 
-                {/* Horizontal scroll container with spring damping */}
+                {/* Horizontal scroll container - RESTORED Layout */}
                 <motion.div
                     style={{ x, scale: cardScale }}
-                    className="flex gap-16 md:gap-24 px-[10vw] items-center will-change-transform"
+                    className="flex gap-12 md:gap-24 px-[5vw] items-center will-change-transform"
                 >
                     {children}
-                    <div className="flex-none w-[20vw]" />
+                    {/* Spacer for scroll completion */}
+                    <div className="flex-none w-[10vw]" />
                 </motion.div>
 
-                {/* Floating background letter */}
-                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.03] pointer-events-none select-none">
-                    <span className="font-epic-serif text-[40rem] leading-none">A</span>
+                {/* Floating background letter - RESTORED: Dark subtle opacity */}
+                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.03] pointer-events-none select-none text-foreground">
+                    <span className="font-epic-serif text-[20rem] md:text-[40rem] leading-none">A</span>
                 </div>
             </div>
         </section>

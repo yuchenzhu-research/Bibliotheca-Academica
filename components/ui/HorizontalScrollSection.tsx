@@ -29,42 +29,43 @@ export function HorizontalScrollSection({
         }
     });
 
-    // Phase 1: Symmetric Buffers
-    // 0 -> 0.2: Entry Freeze (First card stays centered)
-    // 0.2 -> 0.8: Smooth Horizontal Scroll
-    // 0.8 -> 1.0: Exit Freeze (Last card stays centered)
+    // 物理精确居中逻辑：
+    // 第一张卡片中心点对齐屏幕中心：
+    // 起始 X = 50vw - (5vw + 45vw/2) = 22.5vw
+    // 结束 X（第三张居中）：
+    // 第三张中心位置 = 5vw (左边距) + 45vw (图1) + 6vw (间距) + 45vw (图2) + 6vw (间距) + 22.5vw (图3中心) = 129.5vw
+    // 目标 X = 50vw - 129.5vw = -79.5vw
 
-    // Header Opacity: Fades out completely before horizontal move starts
+    // Header Opacity: 只在定格入场和离场时显示，位移期间消失
     const headerOpacity = useTransform(scrollYProgress,
-        [0, 0.1, 0.9, 1],
-        [1, 0, 0, 1]
+        [0, 0.1, 0.2, 0.8, 0.9, 1],
+        [1, 1, 0, 0, 1, 1]
     );
 
-    // Horizontal Translation (X axis)
-    // Starting with an offset to give "breathing room" on the left
+    // X 轴物理位移
     const xRaw = useTransform(
         scrollYProgress,
-        [0, 0.2, 0.8, 1],
-        ['15%', '15%', '-65%', '-65%']
+        [0, 0.25, 0.75, 1], // 对称锁定区间：0.25前后的锁定
+        ['22.5vw', '22.5vw', '-79.5vw', '-79.5vw']
     );
 
     const x = useSpring(xRaw, {
-        damping: 30, // Increased damping for more "inertia" and control
-        stiffness: 80,
+        damping: 40,
+        stiffness: 70,
         mass: 1,
     });
 
-    // Card scale effect: Subtle zoom as we approach center
-    const cardScaleRaw = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.98, 1, 0.98]);
+    // 缩放：在中心时最大，进入和退出锁定区时微调
+    const cardScaleRaw = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0.95, 0.95, 1, 0.95, 0.95]);
     const cardScale = useSpring(cardScaleRaw, {
         damping: 25,
-        stiffness: 200,
+        stiffness: 150,
     });
 
     return (
         <section
             ref={targetRef}
-            className={cn('relative h-[600vh] py-0', className)} // Increased to 600vh for more "freeze" time
+            className={cn('relative h-[700vh] py-0', className)} // 增加到 700vh 以获得更长的定格时间
         >
             <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
                 {/* Section header - RESTORED: Dark text colors */}

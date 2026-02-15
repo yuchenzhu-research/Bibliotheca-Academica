@@ -93,22 +93,25 @@ export function ImageCard({
                 </div>
             )}
 
-            <div className="absolute inset-0 p-10 md:p-12 flex flex-col justify-end z-30 pointer-events-none">
-                <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100">
-                    <div className="mb-6">
-                        <span className="font-sans text-[10px] tracking-[0.3em] text-primary uppercase block mb-3">
-                            Viewing Entry
+            <div className="absolute inset-0 p-12 md:p-16 flex flex-col justify-end z-30 pointer-events-none">
+                <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100 h-full flex flex-col justify-end">
+                    <div className="mb-10">
+                        <span className="font-sans text-[11px] tracking-[0.4em] text-primary/90 font-medium uppercase block mb-4 border-l-2 border-primary pl-4">
+                            Archive Entry
                         </span>
-                        <h3 className="font-epic-serif text-3xl md:text-5xl text-white font-light leading-[1.1] mb-4 max-w-lg">
+                        <h3 className="font-epic-serif text-4xl md:text-6xl text-white font-light leading-[1.05] mb-8 max-w-2xl drop-shadow-sm">
                             {title}
                         </h3>
-                        <div className="h-px w-0 bg-white/20 group-hover:w-full transition-all duration-1000 ease-out" />
+                        <div className="h-px w-0 bg-white/10 group-hover:w-full transition-all duration-1000 ease-out" />
                     </div>
 
                     {description && (
-                        <p className="font-elegant-sans text-sm md:text-base text-white/60 leading-relaxed max-w-md line-clamp-3 italic font-light">
-                            — {description}
-                        </p>
+                        <div className="relative">
+                            <p className="font-elegant-sans text-sm md:text-lg text-white/50 leading-relaxed max-w-xl line-clamp-3 italic font-light">
+                                — {description}
+                            </p>
+                            <div className="absolute -left-8 top-0 bottom-0 w-px bg-white/5" />
+                        </div>
                     )}
                 </div>
             </div>
